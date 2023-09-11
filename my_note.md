@@ -179,8 +179,23 @@ need to guess and write something smaller
 - read more about the wgpu crate, and see which part is called to render to code
 
 11/9/2023: familiarise code base
-- write test for any functions if needed
+- write test for any functions if needed, maybe for renderer.rs that control everything
 - ply.rs is basically doing the ply reading and converting job  
+- reader.rs is basically providing structs and implementations for pcdfilereader, pointcloudfilereader, renderreader, pcd memory reader, to load to point cloud from directory, seems like only for pcd format
+- cannot fully understand renderer.rs
+- builder.rs: nothing interesting
+- camera.rs: most likely to be related to the angle and the space
+- control.rs: related to the controller ui interface on screen
+- metric_reader.rs: most likely related to the metric related functions 
+- png.rs: png related conversion like convert to mp4
+- seems like ply parsing is in ply.rs, and the rendering of point cloud is in render/wgpu (also can read file with util.rs and not using this)
+- try to read the test, and run the test if needed
+- guess: in util.rs, read_file_to_pointcloud take ply file -> pointcloud<pointxyrgba>
+- reader.rs called read_file_to_pointcloud, and this get called by renderreader.start ** (write test and check if it is called like this)
+- question: what happened when you press back and forth?
+- question: difference between ply.rs read_ply, and util.rs read_file_to_pointcloud
+- conclusion: a lot of assumption haven't been tested, from my guess from ply file to point cloud use readfilepointcloud, and from pointcloudtoframe not sure yet, also not sure what happen when pressing back and forth
+- ...? write minimal test that can render ply to point cloud, then play it to understand which part is used and what is going on? is this part in the test?
 
 
 

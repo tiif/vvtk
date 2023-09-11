@@ -53,6 +53,7 @@ pub struct PointCloudFileReader {
     files: Vec<PathBuf>,
 }
 
+//read every file from a directory
 impl PointCloudFileReader {
     pub fn from_directory(directory: &Path, file_type: &str) -> Self {
         let mut files = vec![];
@@ -123,6 +124,7 @@ pub struct PcdMemoryReader {
     points: Vec<PointCloud<PointXyzRgba>>,
 }
 
+//constructor method for pcdmemory reader
 impl PcdMemoryReader {
     pub fn from_vec(points: Vec<PointCloud<PointXyzRgba>>) -> Self {
         Self { points }
