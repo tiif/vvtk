@@ -12,6 +12,7 @@ use vivotk::render::wgpu::{
 };
 
 /// Plays a folder of pcd files in lexicographical order
+/// t: moving key
 #[derive(Parser)]
 struct Args {
     /// src can be:
@@ -104,7 +105,7 @@ fn infer_format(src: &String) -> String {
         }
     }
 
-    let max_index = choice_count
+    let max_index: Option<usize> = choice_count
         .iter()
         .enumerate()
         .max_by_key(|(_, &item)| item)
@@ -119,6 +120,7 @@ fn main() {
 
     // println!("Playing files in {:?} with format {}", path, play_format);
 
+    //t: may be load from here
     let reader = PointCloudFileReader::from_directory(path, &play_format);
 
     if reader.len() == 0 {
@@ -134,6 +136,7 @@ fn main() {
     let metrics = args
         .metrics
         .map(|os_str| MetricsReader::from_directory(Path::new(&os_str)));
+    //t: window will pop up after this line
     let mut builder = RenderBuilder::default();
     let slider_end = reader.len() - 1;
     let render = builder.add_window(Renderer::new(

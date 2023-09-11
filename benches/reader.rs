@@ -5,7 +5,7 @@ use vivotk::ply::read_ply;
 
 fn bench_read_ply(c: &mut Criterion) {
     c.bench_function("read_ply", |b| {
-        let p = Path::new("../test/longdress_vox10_1051.ply");
+        let p = Path::new("../test_files/longdress/longdress/test/longdress_vox10_1081.ply");
         b.iter(|| {
             read_ply(black_box(p));
         })

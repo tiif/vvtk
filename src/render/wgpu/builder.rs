@@ -53,6 +53,7 @@ pub struct RenderBuilder {
 impl Default for RenderBuilder {
     fn default() -> Self {
         Self {
+            //t: what is the event loop here, and what is the hashmap for, fix compilatoin warning 4 months ago
             event_loop: EventLoopBuilder::<RenderEvent>::with_user_event().build(),
             window_objects: HashMap::new(),
         }

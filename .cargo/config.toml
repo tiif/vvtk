@@ -1,0 +1,2 @@
+debuginfo-level = 1
+jemalloc = false

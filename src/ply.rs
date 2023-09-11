@@ -6,6 +6,8 @@ use ply_rs::ply::Header;
 
 use crate::formats::{pointxyzrgba::PointXyzRgba, PointCloud};
 
+
+//create header, and read the header using the parser?
 pub fn read_ply_header<P: AsRef<Path>>(path_buf: P) -> Result<Header, String> {
     let vertex_parser = ply_rs::parser::Parser::<PointXyzRgba>::new();
     let f = std::fs::File::open(path_buf.as_ref())
@@ -20,6 +22,7 @@ pub fn read_ply_header<P: AsRef<Path>>(path_buf: P) -> Result<Header, String> {
     Ok(header)
 }
 
+//loop through and read ply as point cloud format, might need to check if called a lot of time
 pub fn read_ply<P: AsRef<Path>>(path_buf: P) -> Option<PointCloud<PointXyzRgba>> {
     let vertex_parser = ply_rs::parser::Parser::<PointXyzRgba>::new();
     let f = std::fs::File::open(path_buf.as_ref())
@@ -43,13 +46,14 @@ pub fn read_ply<P: AsRef<Path>>(path_buf: P) -> Option<PointCloud<PointXyzRgba>>
             }
         }
     }
-
+    //return number of points and the points
     Some(PointCloud {
         number_of_points: vertex_list.len(),
         points: vertex_list,
     })
 }
 
+//set property for pointxyzrgba
 impl ply_rs::ply::PropertyAccess for PointXyzRgba {
     fn new() -> Self {
         Self {

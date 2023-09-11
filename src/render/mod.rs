@@ -1,6 +1,7 @@
 #[cfg(feature = "render")]
 pub mod wgpu;
 
+//will be used if "render" is not there
 #[cfg(not(feature = "render"))]
 pub mod wgpu {
     pub mod png {

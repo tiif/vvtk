@@ -103,6 +103,7 @@ where
 {
     type Output = State<T, U>;
 
+    //what is the event loop doing here
     fn attach(self, event_loop: &EventLoop<RenderEvent>) -> (Self::Output, Window) {
         let window = WindowBuilder::new()
             .with_title("Point Cloud Renderer")
@@ -181,6 +182,7 @@ where
             } if *window_id == window.id() => {
                 self.handle_device_event(&DeviceEvent::Key(*input));
             }
+            //t: 
             Event::RedrawRequested(window_id) if *window_id == window.id() => {
                 if self.last_render_time.is_none() {
                     self.last_render_time = Some(Instant::now());
@@ -509,6 +511,7 @@ where
         self.num_vertices = vertices;
     }
 
+    //related?
     pub fn render(&mut self, encoder: &mut CommandEncoder, view: &TextureView) {
         let mut render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
             label: Some("Render Pass"),

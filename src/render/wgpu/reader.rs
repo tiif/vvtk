@@ -18,6 +18,7 @@ pub trait RenderReader<T: Renderable> {
     fn set_len(&mut self, len: usize);
 }
 
+//collect all pcd files into a vec
 pub struct PcdFileReader {
     files: Vec<PathBuf>,
 }
