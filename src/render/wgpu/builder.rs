@@ -102,6 +102,7 @@ impl RenderBuilder {
                         window.request_redraw()
                     }
                 }
+                //exit control
                 Event::WindowEvent {
                     ref event,
                     window_id,

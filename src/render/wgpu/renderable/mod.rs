@@ -51,8 +51,9 @@ pub trait Renderable: Clone {
     fn bytes(&self) -> &[u8];
     fn vertices(&self) -> usize;
 }
-
+//t: from point cloud to wgpu renderable type
 impl Renderable for PointCloud<PointXyzRgba> {
+    //t: defines how a buffer is represented in memory, and let render pipeline how to map the buffer in the shader
     fn buffer_layout_desc<'a>() -> VertexBufferLayout<'a> {
         wgpu::VertexBufferLayout {
             array_stride: 16,

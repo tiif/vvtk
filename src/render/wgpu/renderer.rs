@@ -230,6 +230,7 @@ where
         metrics_reader: Option<MetricsReader>,
         bg_color: Rgb,
     ) -> Self {
+        //reading ply file start here
         let initial_render = reader
             .start()
             .expect("There should be at least one point cloud to render!");
@@ -318,10 +319,11 @@ where
     }
 
     fn advance(&mut self) {
-        // println!(
-        //     "[renderer.rs] advanced called. current_position: {}",
-        //     self.current_position
-        // );
+         //println!(
+         //    "[renderer.rs] advanced called. current_position: {}",
+         //    self.current_position
+         //);
+         //t: related to the looping?
         if self.current_position == self.reader.len() - 1 {
             self.move_to(0);
         } else {
@@ -396,7 +398,7 @@ where
         }
         false
     }
-
+    //t: would the render position be updated here?
     fn update_stats(&mut self) {
         if let Some(metrics_reader) = &self.metrics_reader {
             if let Some(metrics) = metrics_reader.get_at(self.current_position) {
@@ -446,7 +448,7 @@ where
     pub fn new(
         device: &Device,
         format: TextureFormat,
-        initial_render: &T,
+        initial_render: &T,Texture
         initial_size: PhysicalSize<u32>,
         camera_state: &CameraState,
         bg_color: Rgb,
@@ -458,7 +460,7 @@ where
 
         let render_pipeline_layout =
             device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-                label: Some("Render Pipeline Layout"),
+                label: Some("Render Pipeline Layout"),Texture
                 bind_group_layouts: &[&camera_bind_group_layout, &antialias_bind_group_layout],
                 push_constant_ranges: &[],
             });
@@ -541,6 +543,7 @@ where
         render_pass.set_pipeline(&self.render_pipeline);
         render_pass.set_bind_group(0, &self.camera_bind_group, &[]);
         render_pass.set_bind_group(1, &self.antialias_bind_group, &[]);
+        //t: can i make change here, slice of the buffer to use, is one buffer one frame?
         render_pass.set_vertex_buffer(0, self.vertex_buffer.slice(..));
         render_pass.draw(0..(self.num_vertices as u32), 0..1);
     }

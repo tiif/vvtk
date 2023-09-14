@@ -197,6 +197,27 @@ need to guess and write something smaller
 - conclusion: a lot of assumption haven't been tested, from my guess from ply file to point cloud use readfilepointcloud, and from pointcloudtoframe not sure yet, also not sure what happen when pressing back and forth
 - ...? write minimal test that can render ply to point cloud, then play it to understand which part is used and what is going on? is this part in the test?
 
+12/9/2023
+- low to high level: util::read_file_to_pointcloud -> pointcloud<pointxyzrgba> => reader.rs renderreader.start => called by renderer::State constructor method
+- hypothesis: read file to pointcloudformat one go, all of them, then go from pointcloud to rendering, then why is there difference in time for pcd and ply (or there is not)?
+- a lot of stuff happening in renderer.rs
+- question, how to render it to the screen?
+- wgpu intro: https://sotrh.github.io/learn-wgpu/beginner/tutorial1-window/#env-logger
+- track where a function is called; https://stackoverflow.com/questions/60692131/can-we-get-the-source-code-location-of-the-caller-in-a-procedural-macro-attribut
+- todo:
+    - test 1: pipeline from pointcloud file to rendering
+    - trace if renderer.state start is called, use the tracing crate  https://www.youtube.com/watch?v=yzKOqLsdQqA
+    - write benchmark for two kind of loading if needed
+
+    - figure out why it would not reach builder.run()
+
+14/9/2023
+- roughly test the running time of pcd and ply ascii --> significantly faster for pcd_b
+- gpt: point cloud data load to vertex buffer, and use something from wgpu, might be impl Renderable for PointCloud<PointXyzRgba> 
+- more understand on what's going on, but still haven't figure out how to update from one frame to another and what happened?
+
+question: 
+
 
 
 

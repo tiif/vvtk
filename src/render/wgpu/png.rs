@@ -199,6 +199,7 @@ impl<'a> PngWriter<'a> {
         let mut mp4_path = mp4_save_path.to_path_buf();
         mp4_path.push("output.mp4");
 
+        //t: use png to write to mp4?
         PngWriter::png_to_mp4(img_dir_path, &mp4_path, name_length, fps, verbose);
 
         // delete tmp png dir
