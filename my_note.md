@@ -201,7 +201,7 @@ need to guess and write something smaller
 - low to high level: util::read_file_to_pointcloud -> pointcloud<pointxyzrgba> => reader.rs renderreader.start => called by renderer::State constructor method
 - hypothesis: read file to pointcloudformat one go, all of them, then go from pointcloud to rendering, then why is there difference in time for pcd and ply (or there is not)?
 - a lot of stuff happening in renderer.rs
-- question, how to render it to the screen?
+- question, how to render it to the screen? through the wgpu renderable related stuff
 - wgpu intro: https://sotrh.github.io/learn-wgpu/beginner/tutorial1-window/#env-logger
 - track where a function is called; https://stackoverflow.com/questions/60692131/can-we-get-the-source-code-location-of-the-caller-in-a-procedural-macro-attribut
 - todo:
@@ -223,3 +223,44 @@ question:
 
 
 utils.rs/test/test_pcd_to_ply: run the test again
+
+
+for meeting:
+- low to high level: util::read_file_to_pointcloud -> pointcloud<pointxyzrgba> => reader.rs renderreader.start => called by renderer::State constructor method
+- store 10 frame inside the read frame to point cloud, there is an index somewhere to access the files by index, and return it if it is there
+- test the time usage with different approach
+- check out spring cleaning
+- large scale system
+- although pcd and ply are renderable, because ply render one by one with the file index, the overhead might be from ply file to Pointcloud<PointXyzRgba>, so speed it up from there
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -330,7 +330,7 @@ where
             self.move_to(self.current_position + 1);
         }
     }
-
+    //get at current, key back and forth
     fn current(&mut self) -> Option<U> {
         self.reader.get_at(self.current_position)
     }
@@ -448,7 +448,7 @@ where
     pub fn new(
         device: &Device,
         format: TextureFormat,
-        initial_render: &T,Texture
+        initial_render: &T,
         initial_size: PhysicalSize<u32>,
         camera_state: &CameraState,
         bg_color: Rgb,
@@ -460,7 +460,7 @@ where
 
         let render_pipeline_layout =
             device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-                label: Some("Render Pipeline Layout"),Texture
+                label: Some("Render Pipeline Layout"),
                 bind_group_layouts: &[&camera_bind_group_layout, &antialias_bind_group_layout],
                 push_constant_ranges: &[],
             });

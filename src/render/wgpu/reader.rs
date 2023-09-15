@@ -80,7 +80,7 @@ impl RenderReader<PointCloud<PointXyzRgba>> for PointCloudFileReader {
     fn start(&mut self) -> Option<PointCloud<PointXyzRgba>> {
         self.get_at(0)
     }
-
+    // render only once here
     fn get_at(&mut self, index: usize) -> Option<PointCloud<PointXyzRgba>> {
         let file_path = self.files.get(index)?;
         read_file_to_point_cloud(file_path)
@@ -150,7 +150,7 @@ impl RenderReader<PointCloud<PointXyzRgba>> for PcdMemoryReader {
 
     fn set_len(&mut self, _len: usize) {}
 }
-
+//read here
 #[cfg(feature = "dash")]
 pub struct PcdAsyncReader {
     current_frame: u64,
