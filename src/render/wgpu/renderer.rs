@@ -296,6 +296,7 @@ where
             return;
         }
         let now = Instant::now();
+        //t: move position
         let tmp = self.current_position;
         self.current_position = position;
         if !self.update_vertices() {

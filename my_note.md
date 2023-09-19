@@ -232,6 +232,21 @@ for meeting:
 - check out spring cleaning
 - large scale system
 - although pcd and ply are renderable, because ply render one by one with the file index, the overhead might be from ply file to Pointcloud<PointXyzRgba>, so speed it up from there
+-
+18/9/2022
+- need to abstract the cache away in future if it works
+- checkout the hashmap that is being used in other place
+
+19/9/2022
+- debug done, need something to test the execution time
+    - idea: 
+        - create a folder with 10 result
+        - run it forward and run it backward?
+        - compare with the original vvplay
+        - make the executable such that it will print out debug message
+    - todo:
+        - check if the other branch is not doing the same thing, what is ply_vplay
+        - write benchmark for the new updat
 
 
 

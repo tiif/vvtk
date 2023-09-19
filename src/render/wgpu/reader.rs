@@ -51,12 +51,16 @@ impl PcdFileReader {
 
 pub struct PointCloudFileReader {
     files: Vec<PathBuf>,
+    cache: Vec<(usize, PointCloud<PointXyzRgba>)>,
 }
 
 //read every file from a directory
 impl PointCloudFileReader {
     pub fn from_directory(directory: &Path, file_type: &str) -> Self {
         let mut files = vec![];
+        //t:temporarily instantiate cache here
+        //why don't need mut for cache?
+        let cache = vec![];
         for file_entry in directory.read_dir().unwrap() {
             match file_entry {
                 Ok(entry) => {
@@ -72,7 +76,7 @@ impl PointCloudFileReader {
             }
         }
         files.sort();
-        Self { files }
+        Self { files, cache }
     }
 }
 
@@ -82,8 +86,30 @@ impl RenderReader<PointCloud<PointXyzRgba>> for PointCloudFileReader {
     }
     // render only once here
     fn get_at(&mut self, index: usize) -> Option<PointCloud<PointXyzRgba>> {
+        //t: use cache here
+        //check if available in cache
+        //optimise: search it in O(1)
+        //todo: debug here
+        if let Some(&ref result) = self.cache.iter().find(|&i| i.0 == index) {
+            return Some(result.1.clone());
+        }
+        
         let file_path = self.files.get(index)?;
-        read_file_to_point_cloud(file_path)
+        let point_cloud : Option<PointCloud<PointXyzRgba>>;
+        point_cloud = read_file_to_point_cloud(file_path).clone();
+        //take point_cloud by reference to prevent partially borrow error without copy trait
+        match &point_cloud {
+            Some(t) => {
+                if self.cache.len() >= 10 {
+                    self.cache.pop();
+                }
+                self.cache.push((index, t.clone()));
+            },
+            None => {},
+        }
+        //storing part
+
+        point_cloud
     }
 
     fn len(&self) -> usize {
@@ -126,6 +152,7 @@ pub struct PcdMemoryReader {
 
 //constructor method for pcdmemory reader
 impl PcdMemoryReader {
+    //t: what is this for?
     pub fn from_vec(points: Vec<PointCloud<PointXyzRgba>>) -> Self {
         Self { points }
     }
