@@ -86,18 +86,15 @@ impl RenderReader<PointCloud<PointXyzRgba>> for PointCloudFileReader {
     }
     // render only once here
     fn get_at(&mut self, index: usize) -> Option<PointCloud<PointXyzRgba>> {
-        //t: use cache here
-        //check if available in cache
-        //optimise: search it in O(1)
-        //todo: debug here
+        //search in the cache in O(n) then return
         if let Some(&ref result) = self.cache.iter().find(|&i| i.0 == index) {
+            println!("cache used");
             return Some(result.1.clone());
         }
         
         let file_path = self.files.get(index)?;
         let point_cloud : Option<PointCloud<PointXyzRgba>>;
         point_cloud = read_file_to_point_cloud(file_path).clone();
-        //take point_cloud by reference to prevent partially borrow error without copy trait
         match &point_cloud {
             Some(t) => {
                 if self.cache.len() >= 10 {
@@ -107,6 +104,7 @@ impl RenderReader<PointCloud<PointXyzRgba>> for PointCloudFileReader {
             },
             None => {},
         }
+        println!("cache not used");
         //storing part
 
         point_cloud
@@ -267,6 +265,7 @@ impl RenderReader<PointCloud<PointXyzRgba>> for PcdAsyncReader {
 
         // remove if we have in the buffer.
         // FIXME: change the object_id and quality.
+        //get the data from the buffer and delete it from the hashmap
         if let Some(data) = self.buffer.remove(&FrameRequest {
             object_id: 0u8,
             quality: 0u8,
