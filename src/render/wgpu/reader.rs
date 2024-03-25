@@ -259,7 +259,7 @@ impl RenderReaderCameraPos<PointCloud<PointXyzRgba>> for PcdAsyncReader {
     ) -> (Option<CameraPosition>, Option<PointCloud<PointXyzRgba>>) {
         /*
         println!("----------------------------------");
-        println!{"get at request index: {}", index};
+        println! {"get at request index: {}", index};
         */
         let index = index as u64;
         if let Some(&ref result) = self.cache.iter().find(|&i| i.0 == index) {
@@ -311,7 +311,7 @@ impl RenderReader<PointCloud<PointXyzRgba>> for PcdAsyncReader {
     fn get_at(&mut self, index: usize) -> Option<PointCloud<PointXyzRgba>> {
         /*
         println!("----------------------------------");
-        println!{"get at request index: {}", index};
+        println! {"get at request index: {}", index};
         */
         let index = index as u64;
         // Everytime a request is made, find it from the playback cache first

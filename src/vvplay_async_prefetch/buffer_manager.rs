@@ -117,7 +117,7 @@ impl BufferManager {
         let mut last_req: Option<FrameRequest> = None;
         loop {
             /*
-            println!{"---------------------------"};
+            println! {"---------------------------"};
             println!("buffer: {:?}", &self.buffer);
             */
             //wait for message in self.shutdown_recv and self.to_buf_Rx
